@@ -296,25 +296,32 @@ function ProductList({ onHomeClick }) {
                                 <div>{category.category}</div>
                             </h1>
                             <div className="product-list">
-                                {category.plants.map((plant, plantIndex) => (
-                                    <div className="product-card" key={plantIndex}>
-                                        <img 
-                                            className="product-image"
-                                            src={plant.image}
-                                            alt={plant.name}
-                                        />
-                                        <div className="product-title">{plant.name}</div>
-                                        <div className="product-description">{plant.description}</div>
-                                        <div className="product-cost">{plant.cost}</div>
-                                        <button
-                                            className="product-button"
-                                            onClick={() => handleAddToCart(plant)}
-                                            disabled={addedToCart[plant.name]}
-                                        >
-                                            {addedToCart[plant.name] ? 'Added to Cart' : 'Add to Cart'}
-                                        </button>
-                                    </div>
-                                ))}
+                            {category.plants.map((plant, j) => {
+  const isAdded = addedToCart[plant.name];
+  return (
+    <div className="product-card" key={j}>
+      <img className="product-image" src={plant.image} alt={plant.name} />
+      <div className="product-title">{plant.name}</div>
+      <div className="product-description">{plant.description}</div>
+      <div className="product-cost">{plant.cost}</div>
+      <button
+        className="product-button"
+        onClick={() => handleAddToCart(plant)}
+        disabled={isAdded}
+        style={{
+          backgroundColor: isAdded ? '#a9a9a9' : '#4CAF50',
+          color: 'white',
+          cursor: isAdded ? 'not-allowed' : 'pointer',
+          border: 'none',
+          padding: '10px 15px',
+          borderRadius: '5px'
+        }}
+      >
+        {isAdded ? 'Added to Cart' : 'Add to Cart'}
+      </button>
+    </div>
+  );
+})}
                             </div>
                         </div>
                     ))}
